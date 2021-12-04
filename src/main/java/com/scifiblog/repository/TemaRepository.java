@@ -2,15 +2,14 @@ package com.scifiblog.repository;
 
 import java.util.List;
 
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.scifiblog.model.Postagem;
+import com.scifiblog.model.Tema;
 
 @Repository
-public interface PostagemRepository extends JpaRepository<Postagem, Long>{
+public interface TemaRepository extends JpaRepository<Tema, Long>{
 
-	public List<Postagem> findAllByTituloContainingIgnoreCase (String titulo);
+	public List<Tema> findAllByDescricaoContainingIgnoreCase (String descricao);
 	
 }

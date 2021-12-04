@@ -2,16 +2,18 @@ package com.scifiblog.model;
 
 import java.util.Date;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "postagem")
@@ -21,16 +23,20 @@ public class Postagem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@NotNull
+	@NotBlank
 	@Size(min = 1, max = 80)
 	private String titulo;
 	
-	@NotNull
+	@NotBlank
 	@Size(min = 80, max = 1000)
 	private String texto;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date = new java.sql.Date(System.currentTimeMillis());
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	Tema tema;
 	
 	public long getId() {
 		return id;
