@@ -1,9 +1,7 @@
 package com.scifiblog.controller;
 
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +19,7 @@ import com.scifiblog.repository.TemaRepository;
 
 @RestController
 @CrossOrigin(origins  =  "*", allowedHeaders = "*")
-@RequestMapping
+@RequestMapping("/temas")
 public class TemaController {
 
 	@Autowired
@@ -50,18 +48,13 @@ public class TemaController {
 	
 	@PutMapping
 	public ResponseEntity<Tema> put(@Valid @RequestBody Tema tema) {
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(tema));
+		return repository.findById(tema.getId())
+				.map(resposta -> ResponseEntity.ok().body(repository.save(tema)))
+				.orElse(ResponseEntity.notFound().build());
 	}
-	
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable long id) {
-		repository.deleteById(id);		
-	}
-	
-	/*
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable long id) {
-		
 		return repository.findById(id)
 				.map(resposta -> {
 					repository.deleteById(id);
@@ -69,6 +62,5 @@ public class TemaController {
 				})
 				.orElse(ResponseEntity.notFound().build());
 	}
-	*/
 	
 }

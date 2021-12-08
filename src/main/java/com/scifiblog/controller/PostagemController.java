@@ -1,9 +1,7 @@
 package com.scifiblog.controller;
 
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +14,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.scifiblog.model.Postagem;
 import com.scifiblog.repository.PostagemRepository;
 
+//As anotações que estão são muito importantes.
+//RestController indica que a class é um controller,
+//RequestMapping define o caminho que será encontrada a classe na web
+//e CrossOrigin é um meio de framworks front serem guiados ao back
+//e conseguirem trazer a resposta
 @RestController
 @RequestMapping("/postagens")
 @CrossOrigin(origins  =  "*", allowedHeaders = "*")
@@ -51,18 +53,13 @@ public class PostagemController {
 	
 	@PutMapping
 	public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem) {
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(postagem));
+		return repository.findById(postagem.getId())
+				.map(resposta -> ResponseEntity.ok().body(repository.save(postagem)))
+				.orElse(ResponseEntity.notFound().build());
 	}
 	
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable long id) {
-		repository.deleteById(id);		
-	}
-	
-	/*
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable long id) {
-		
 		return repository.findById(id)
 				.map(resposta -> {
 					repository.deleteById(id);
@@ -70,6 +67,6 @@ public class PostagemController {
 				})
 				.orElse(ResponseEntity.notFound().build());
 	}
-	*/
+	
 	
 }
