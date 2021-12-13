@@ -30,17 +30,20 @@ public class PostagemController {
 	@Autowired
 	private PostagemRepository repository;
 	
+	//Esse método get lista tudo
 	@GetMapping
 	public ResponseEntity<List<Postagem>> getAll(){
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
+	//Esse metodo pega pelo id
 	@GetMapping("/{id}")
 	public ResponseEntity<Postagem> getById(@PathVariable long id) {
 		return repository.findById(id)
 				.map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 	
+	//Este metodo usa o titulo para trazer a resposta
 	@GetMapping("/titulo/{titulo}")
 	public ResponseEntity<List <Postagem>> getByTitulo(@PathVariable String titulo) {
 		return ResponseEntity.ok(repository.findAllByTituloContainingIgnoreCase(titulo));
