@@ -1,12 +1,18 @@
 package com.scifiblog.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "leitor")
@@ -27,6 +33,12 @@ public class Leitor {
 	@NotBlank(message = "Campo não pode estar em branco")
 	@Size(min = 6, max = 32, message = "campo não pode ter menos que 6 caractéres e nem pode ter mais de 32")
 	private String senha;
+	
+	private String foto;
+	
+	@OneToMany(mappedBy = "leitor", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("leitor")
+	private List<Postagem> postagem;
 
 	public long getId() {
 		return id;
@@ -56,6 +68,11 @@ public class Leitor {
 		this.senha = senha;
 	}
 	
+	public String getFoto() {
+		return foto;
+	}
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
 	
-
 }

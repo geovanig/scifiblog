@@ -8,7 +8,9 @@ public class LoginLeitor {
 	
 	private String email;
 
-	private String senha;
+	private String senha
+	;
+	private String foto;
 	
 	private String token;
 	
@@ -41,6 +43,13 @@ public class LoginLeitor {
 		this.senha = senha;
 	}
 
+	public String getFoto() {
+		return foto;
+	}
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+	
 	public String getToken() {
 		return token;
 	}
