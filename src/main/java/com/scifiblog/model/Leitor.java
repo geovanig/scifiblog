@@ -39,7 +39,20 @@ public class Leitor {
 	@OneToMany(mappedBy = "leitor", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("leitor")
 	private List<Postagem> postagem;
+	
+	public Leitor() {}
 
+	public Leitor(long id, @NotBlank(message = "Campo não pode estar em branco") @Size(min = 1, max = 128) String nome,
+			@NotBlank(message = "Campo não pode estar em branco") @Size(min = 6, max = 128, message = "campo não pode ter menos que 6 caractéres e nem pode ter mais de 128") String email,
+			@NotBlank(message = "Campo não pode estar em branco") @Size(min = 6, max = 32, message = "campo não pode ter menos que 6 caractéres e nem pode ter mais de 32") String senha,
+			String foto) {
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+		this.foto = foto;
+	}
+	
 	public long getId() {
 		return id;
 	}
