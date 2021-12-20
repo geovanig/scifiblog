@@ -1,6 +1,7 @@
 package com.scifiblog.model;
 
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +12,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "leitor")
@@ -26,11 +30,11 @@ public class Leitor {
 	private String nome;
 	
 	@Email
-	//@Schema(example = "email@email.com.br")
+	@Schema(example = "email@email.com.br")
 	private String email;
 	
 	@NotBlank(message = "Campo não pode estar em branco")
-	@Size(min = 6, max = 32, message = "campo não pode ter menos que 6 caractéres e nem pode ter mais de 32")
+	@Size(min = 6, message = "campo não pode ter menos que 6 caractéres")
 	private String senha;
 	
 	private String foto;
