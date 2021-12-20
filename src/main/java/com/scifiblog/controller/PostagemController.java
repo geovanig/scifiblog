@@ -17,11 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.scifiblog.model.Postagem;
 import com.scifiblog.repository.PostagemRepository;
 
-//As anotações que estão são muito importantes.
-//RestController indica que a class é um controller,
-//RequestMapping define o caminho que será encontrada a classe na web
-//e CrossOrigin é um meio de framworks front serem guiados ao back
-//e conseguirem trazer a resposta
 @RestController
 @RequestMapping("/postagens")
 @CrossOrigin(origins  =  "*", allowedHeaders = "*")
@@ -30,20 +25,17 @@ public class PostagemController {
 	@Autowired
 	private PostagemRepository repository;
 	
-	//Esse método get lista tudo
 	@GetMapping
 	public ResponseEntity<List<Postagem>> getAll(){
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
-	//Esse metodo pega pelo id
 	@GetMapping("/{id}")
 	public ResponseEntity<Postagem> getById(@PathVariable long id) {
 		return repository.findById(id)
 				.map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 	
-	//Este metodo usa o titulo para trazer a resposta
 	@GetMapping("/titulo/{titulo}")
 	public ResponseEntity<List <Postagem>> getByTitulo(@PathVariable String titulo) {
 		return ResponseEntity.ok(repository.findAllByTituloContainingIgnoreCase(titulo));
@@ -63,13 +55,10 @@ public class PostagemController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable long id) {
-		return repository.findById(id)
-				.map(resposta -> {
-					repository.deleteById(id);
-					return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-				})
-				.orElse(ResponseEntity.notFound().build());
+		return repository.findById(id).map(resposta -> {
+			repository.deleteById(id);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}).orElse(ResponseEntity.notFound().build());
 	}
-	
 	
 }

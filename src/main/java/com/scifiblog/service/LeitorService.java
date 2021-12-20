@@ -25,7 +25,12 @@ public class LeitorService {
 	}
 
 	public Optional<Leitor> atualizarLeitor(Leitor leitor) {
-		if (leitorRepository.findByEmail(leitor.getEmail()).isPresent()) {
+		if (leitorRepository.findById(leitor.getId()).isPresent()) {
+			Optional<Leitor> buscaLeitor = leitorRepository.findByEmail(leitor.getEmail());
+			if (buscaLeitor.isPresent()) {
+				if (buscaLeitor.get().getId() != leitor.getId())
+					return Optional.empty();
+			}
 			leitor.setSenha(criptografarSenha(leitor.getSenha()));
 			return Optional.of(leitorRepository.save(leitor));
 		}
@@ -38,9 +43,8 @@ public class LeitorService {
 			if (compararSenhas(loginLeitor.get().getSenha(), leitor.get().getSenha())) {
 				loginLeitor.get().setId(leitor.get().getId());
 				loginLeitor.get().setNome(leitor.get().getNome());
-				loginLeitor.get().setFoto(leitor.get().getFoto());
-				loginLeitor.get().setToken(gerarBasicToken(loginLeitor.get().getEmail(), loginLeitor.get().getSenha()));
 				loginLeitor.get().setSenha(leitor.get().getSenha());
+				loginLeitor.get().setToken(gerarBasicToken(loginLeitor.get().getEmail(), loginLeitor.get().getSenha()));
 				return loginLeitor;
 			}
 		}

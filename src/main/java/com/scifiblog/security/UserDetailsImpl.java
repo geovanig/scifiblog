@@ -2,10 +2,8 @@ package com.scifiblog.security;
 
 import java.util.Collection;
 import java.util.List;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import com.scifiblog.model.Leitor;
 
 public class UserDetailsImpl implements UserDetails {

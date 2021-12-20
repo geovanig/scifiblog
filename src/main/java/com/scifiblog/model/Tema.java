@@ -24,12 +24,6 @@ public class Tema {
 	@NotBlank(message = "O campo deve ter alguma descrição")
 	private String descricao;
 	
-	//Aqui, o atributo para fazer a relação é uma lista,
-	//isso porque existirá muitas postagens em um tema.
-	//O mappedBy indica o o que será usado como chave estrangeira
-	//nessa relação de tema/postagem.
-	//E o cascade aplica a regra de perpetuar, por toda postagem usando o tema especifico,
-	//ss alterações feitas, inclusive apagar as postagens com os temas que forem apagados
 	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("tema")
 	private List<Postagem> postagem;
