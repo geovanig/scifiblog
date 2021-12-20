@@ -3,15 +3,10 @@ package com.scifiblog.model;
 public class LoginLeitor {
 	
 	private long id;
-	
-	private String nome;
-	
+	private String nome;	
 	private String email;
-
-	private String senha
-	;
+	private String senha;
 	private String foto;
-	
 	private String token;
 	
 
@@ -55,8 +50,6 @@ public class LoginLeitor {
 	}
 	public void setToken(String token) {
 		this.token = token;
-	}
-	
-	
+	}	
 	
 }
