@@ -27,7 +27,7 @@ public class Postagem {
 	private String titulo;
 	
 	@NotBlank(message = "O texto não pode estar em branco!")
-	@Size(min = 1, max = 8000, message = "O texto pode conter até 8000 caracteres!")
+	@Size(min = 1, max = 20000, message = "O texto pode conter até 20000 caracteres!")
 	private String texto;
 	
 	@Temporal(TemporalType.TIMESTAMP)
