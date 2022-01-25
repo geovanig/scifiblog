@@ -35,7 +35,7 @@ public class LeitorContollerTest {
 	@DisplayName("Cadastrar Leitor")
 	public void deveCriarLeitor() {
 		HttpEntity<Leitor> requisicao = new HttpEntity<Leitor>(
-				new Leitor(0L, "Paulo Antunes", "paulo_antunes@email.com.br", "13465278", ""));
+				new Leitor(0L, "Paulo Antunes", "paulo_antunes@email.com.br", "13465278", "", ""));
 		ResponseEntity<Leitor> resposta = testRestTemplate.exchange("/leitores/cadastrar", HttpMethod.POST, requisicao,
 				Leitor.class);
 		assertEquals(HttpStatus.CREATED, resposta.getStatusCode());
@@ -47,9 +47,9 @@ public class LeitorContollerTest {
 	@Order(2)
 	@DisplayName("Não deve permitir duplicação do Usuário")
 	public void naoDeveDuplicarUsuario() {
-		leitorService.cadastrarLeitor(new Leitor(0L, "Maria da Silva", "maria_silva@email.com.br", "13465278", ""));
+		leitorService.cadastrarLeitor(new Leitor(0L, "Maria da Silva", "maria_silva@email.com.br", "13465278", "", ""));
 		HttpEntity<Leitor> requisicao = new HttpEntity<Leitor>(
-				new Leitor(0L, "Maria da Silva", "maria_silva@email.com.br", "13465278", ""));
+				new Leitor(0L, "Maria da Silva", "maria_silva@email.com.br", "13465278", "", ""));
 		ResponseEntity<Leitor> resposta = testRestTemplate.exchange("/leitores/cadastrar", HttpMethod.POST, requisicao,
 				Leitor.class);
 		assertEquals(HttpStatus.BAD_REQUEST, resposta.getStatusCode());
@@ -60,9 +60,9 @@ public class LeitorContollerTest {
 	@DisplayName("Alterar leitor")
 	public void deveAtualizarUmleitor() {
 		Optional<Leitor> leitorCreate = leitorService
-				.cadastrarLeitor(new Leitor(0L, "Juliana Andrews", "juliana_andrews@email.com.br", "juliana123", ""));
+				.cadastrarLeitor(new Leitor(0L, "Juliana Andrews", "juliana_andrews@email.com.br", "juliana123", "", ""));
 		Leitor leitorUpdate = new Leitor(leitorCreate.get().getId(), "Juliana Andrews Ramos",
-				"juliana_ramos@email.com.br", "juliana123", "");
+				"juliana_ramos@email.com.br", "juliana123", "", "");
 		HttpEntity<Leitor> requisicao = new HttpEntity<Leitor>(leitorUpdate);
 		ResponseEntity<Leitor> resposta = testRestTemplate.withBasicAuth("root", "root").exchange("/usuarios/atualizar",
 				HttpMethod.PUT, requisicao, Leitor.class);

@@ -43,7 +43,9 @@ public class LeitorService {
 			if (compararSenhas(loginLeitor.get().getSenha(), leitor.get().getSenha())) {
 				loginLeitor.get().setId(leitor.get().getId());
 				loginLeitor.get().setNome(leitor.get().getNome());
+				loginLeitor.get().setFoto(leitor.get().getFoto());
 				loginLeitor.get().setSenha(leitor.get().getSenha());
+				loginLeitor.get().setTipo(leitor.get().getTipo());
 				loginLeitor.get().setToken(gerarBasicToken(loginLeitor.get().getEmail(), loginLeitor.get().getSenha()));
 				return loginLeitor;
 			}

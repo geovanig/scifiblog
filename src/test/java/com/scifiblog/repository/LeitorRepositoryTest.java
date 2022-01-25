@@ -22,10 +22,10 @@ public class LeitorRepositoryTest {
 
 	@BeforeAll
 	void start() {
-		leitorRepository.save(new Leitor(0L, "Lion Ferreira", "lion@email.com.br", "senha123456", ""));
-		leitorRepository.save(new Leitor(0L, "Cat Ferreira", "cat@email.com.br", "senha12345", ""));
-		leitorRepository.save(new Leitor(0L, "Ma Ferreira", "ma@email.com.br", "senha1234", ""));
-		leitorRepository.save(new Leitor(0L, "Guga", "guga@email.com.br", "senha123", ""));
+		leitorRepository.save(new Leitor(0L, "Lion Ferreira", "lion@email.com.br", "senha123456", "", ""));
+		leitorRepository.save(new Leitor(0L, "Cat Ferreira", "cat@email.com.br", "senha12345", "", ""));
+		leitorRepository.save(new Leitor(0L, "Ma Ferreira", "ma@email.com.br", "senha1234", "", ""));
+		leitorRepository.save(new Leitor(0L, "Guga", "guga@email.com.br", "senha123", "", ""));
 	}
 
 	@Test
