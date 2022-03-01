@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
-public class BasicSecurityConfig extends WebSecurityConfigurerAdapter{
+public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -32,18 +32,10 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-		.antMatchers("/usuarios/logar").permitAll()
-		.antMatchers("/usuarios/cadastrar").permitAll()
-		.antMatchers(HttpMethod.OPTIONS).permitAll()
-		.antMatchers(HttpMethod.GET, "/postagens").permitAll()
-		.antMatchers(HttpMethod.GET, "/postagens/**").permitAll()
-		.antMatchers(HttpMethod.GET, "/temas").permitAll()
-		.antMatchers(HttpMethod.GET, "/temas/**").permitAll()
-		.anyRequest().authenticated()
-		.and().httpBasic()
-		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and().cors().and().csrf().disable();
+		http.authorizeRequests().antMatchers("/leitores/logar").permitAll().antMatchers("/leitores/cadastrar")
+				.permitAll().antMatchers(HttpMethod.OPTIONS).permitAll().anyRequest().authenticated().and().httpBasic()
+				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().cors().and()
+				.csrf().disable();
 	}
-	
+
 }
