@@ -11,5 +11,6 @@ public interface LeitorRepository extends JpaRepository<Leitor, Long>{
 
 	public Optional<Leitor> findByEmail(String email);
 	public List <Leitor> findAllByNomeContainingIgnoreCase(String nome);
+	public Optional<Leitor> findById(long id);
 	
 }

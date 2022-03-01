@@ -2,9 +2,7 @@ package com.scifiblog.controller;
 
 import java.util.List;
 import java.util.Optional;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +15,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.scifiblog.model.Leitor;
 import com.scifiblog.model.LoginLeitor;
+import com.scifiblog.model.Postagem;
 import com.scifiblog.repository.LeitorRepository;
 import com.scifiblog.service.LeitorService;
 
@@ -37,6 +35,12 @@ public class LeitorController {
 	@GetMapping("/all")
 	public ResponseEntity<List<Leitor>> getAll() {
 		return ResponseEntity.ok(leitorRepository.findAll());
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Leitor> getById(@PathVariable long id) {
+		return leitorRepository.findById(id)
+				.map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 
 	@PostMapping("/logar")
